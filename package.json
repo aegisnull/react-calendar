@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint ./src",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write 'src/**/*.{js,jsx,scss}'"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -28,6 +29,8 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.0",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.8.3",
+    "prettier-plugin-rational-order": "^1.0.3",
     "vite": "^4.1.0"
   }
 }
