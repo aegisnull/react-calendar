@@ -1,3 +1,10 @@
 body {
-  background-color: #ebf6f5;
+  background-color: var(--primary-color);
+}
+
+:root {
+  --primary-color: #ebf6f5;
+  --secondary-color: #5cbdb9;
+  --tertiary-color: #fbe3e8;
+  --quaternary-color: #222222;
 }
