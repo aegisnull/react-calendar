@@ -1,3 +1,5 @@
+@import url(./vendor/reset.css);
+
 body {
   background-color: var(--primary-color);
 }
