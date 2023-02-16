@@ -91,5 +91,15 @@
         opacity: 1;
       }
     }
+
+    &_inactive {
+      background-color: lightgray;
+      cursor: unset;
+      color: gray;
+
+      &:hover {
+        background-color: lightgray;
+      }
+    }
   }
 }
