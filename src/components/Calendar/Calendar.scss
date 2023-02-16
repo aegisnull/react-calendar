@@ -4,6 +4,8 @@
   padding-top: 10vh;
 
   &__header {
+    display: flex;
+    align-items: center;
     padding: 1rem;
     background-color: white;
     border-top-left-radius: 20px;
@@ -11,9 +13,31 @@
   }
 
   &__title {
-    color: #333;
+    margin: auto;
+    color: var(--secondary-color);
     font-weight: 600;
     font-size: 26px;
-    text-align: center;
+  }
+
+  &__button {
+    padding: 0.5rem;
+    background-color: var(--tertiary-color);
+    border: none;
+    cursor: pointer;
+    opacity: 0.6;
+
+    &:nth-last-of-type(2) {
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+    }
+
+    &:nth-last-of-type(1) {
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
   }
 }
