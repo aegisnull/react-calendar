@@ -46,28 +46,31 @@ function Calendar() {
 
   // render date boxes for the current month, previous month, and next month
   const dateBoxes = Array.from(
-  { length: Math.ceil((daysInMonth + firstDayOfWeek) / 7) },
-  (week, i) => i,
-).map((week) => (
-  <div className='calendar__week' key={week}>
-    {Array.from({ length: 7 }, (week, i) => i).map((day) => {
-      const date = week * 7 + day + 1 - firstDayOfWeek;
-      const isCurrentMonth = currentDate.getMonth() === currentMonthIndex;
-      const isToday = currentDate.getDate() === date;
-      return (
-        <div
-          className={`calendar__day ${
-            !isCurrentMonth ? 'calendar__day_inactive' : isToday ? 'calendar__day_today' : ''
-          }`}
-          key={`${week}-${day}`}
-        >
-          {date < 1 ? prevMonthLastDay + date : date > daysInMonth ? date - daysInMonth : date}
-        </div>
-      );
-    })}
-  </div>
-));
-
+    { length: Math.ceil((daysInMonth + firstDayOfWeek) / 7) },
+    (week, i) => i,
+  ).map((week) => (
+    <div className='calendar__week' key={week}>
+      {Array.from({ length: 7 }, (week, i) => i).map((day) => {
+        const date = week * 7 + day + 1 - firstDayOfWeek;
+        const isCurrentMonth = currentDate.getMonth() === currentMonthIndex;
+        const isToday = currentDate.getDate() === date;
+        return (
+          <div
+            className={`calendar__day ${
+              !isCurrentMonth || date < 1 || date > daysInMonth
+                ? 'calendar__day_inactive'
+                : isToday
+                ? 'calendar__day_today'
+                : ''
+            }`}
+            key={`${week}-${day}`}
+          >
+            {date < 1 ? prevMonthLastDay + date : date > daysInMonth ? date - daysInMonth : date}
+          </div>
+        );
+      })}
+    </div>
+  ));
 
   return (
     <div className='calendar'>
