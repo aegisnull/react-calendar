@@ -93,9 +93,9 @@
     }
 
     &_inactive {
+      color: gray;
       background-color: lightgray;
       cursor: unset;
-      color: gray;
 
       &:hover {
         background-color: lightgray;

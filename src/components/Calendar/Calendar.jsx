@@ -69,6 +69,19 @@ function Calendar() {
                 : ''
             }`}
             key={`${week}-${day}`}
+            onDoubleClick={() => {
+              if (isCurrentMonth && date >= 1 && date <= daysInMonth) {
+                const selectedDate = new Date(
+                  currentDate.getFullYear(),
+                  currentMonthIndex,
+                  date,
+                  actualDate.getHours(),
+                  actualDate.getMinutes(),
+                  actualDate.getSeconds(),
+                );
+                console.log(selectedDate);
+              }
+            }}
           >
             {date < 1 ? prevMonthLastDay + date : date > daysInMonth ? date - daysInMonth : date}
           </div>
