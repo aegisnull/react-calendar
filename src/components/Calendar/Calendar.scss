@@ -70,8 +70,8 @@
     display: flex;
     flex: 1;
     justify-content: flex-end;
-    padding: 10px;
     height: 80px;
+    padding: 10px;
     font-size: 14px;
     background-color: white;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -80,7 +80,16 @@
     &:hover {
       background-color: var(--tertiary-color);
     }
-  }
 
-  
+    &_today {
+      font-weight: 600;
+      background-color: var(--secondary-color);
+      opacity: 0.6;
+
+      &:hover {
+        background-color: var(--secondary-color);
+        opacity: 1;
+      }
+    }
+  }
 }
