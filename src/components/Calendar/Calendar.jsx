@@ -45,12 +45,22 @@ function Calendar() {
   const prevMonthLastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
 
   // render date boxes for the current month, previous month, and next month
+  const getDayClassName = (date, isCurrentMonth, isToday) => {
+    if (!isCurrentMonth || date < 1 || date > daysInMonth) {
+      return 'calendar__day_inactive';
+    }
+    if (isToday) {
+      return 'calendar__day_today';
+    }
+    return '';
+  };
+
   const dateBoxes = Array.from(
     { length: Math.ceil((daysInMonth + firstDayOfWeek) / 7) },
-    (week, i) => i,
+    (_, i) => i,
   ).map((week) => (
     <div className='calendar__week' key={week}>
-      {Array.from({ length: 7 }, (week, i) => i).map((day) => {
+      {Array.from({ length: 7 }, (_, i) => i).map((day) => {
         const date = week * 7 + day + 1 - firstDayOfWeek;
         const isCurrentMonth = currentDate.getMonth() === currentMonthIndex;
         const actualDate = new Date();
@@ -59,15 +69,19 @@ function Calendar() {
         const actualYear = actualDate.getFullYear();
         const isActualYear = actualYear === currentDate.getFullYear();
         const isToday = isActualMonth && isActualYear && currentDate.getDate() === date;
+
+        let dateText;
+        if (date < 1) {
+          dateText = prevMonthLastDay + date;
+        } else if (date > daysInMonth) {
+          dateText = date - daysInMonth;
+        } else {
+          dateText = date;
+        }
+
         return (
           <div
-            className={`calendar__day ${
-              !isCurrentMonth || date < 1 || date > daysInMonth
-                ? 'calendar__day_inactive'
-                : isToday
-                ? 'calendar__day_today'
-                : ''
-            }`}
+            className={`calendar__day ${getDayClassName(date, isCurrentMonth, isToday)}`}
             key={`${week}-${day}`}
             onDoubleClick={() => {
               if (isCurrentMonth && date >= 1 && date <= daysInMonth) {
@@ -83,7 +97,7 @@ function Calendar() {
               }
             }}
           >
-            {date < 1 ? prevMonthLastDay + date : date > daysInMonth ? date - daysInMonth : date}
+            {dateText}
           </div>
         );
       })}
@@ -97,18 +111,24 @@ function Calendar() {
           <button
             className='calendar__button calendar__button_prev'
             onClick={() => handleDateChange(-1)}
+            type='button'
           >
             Back
           </button>
           <button
             className='calendar__button calendar__button_next'
             onClick={() => handleDateChange(1)}
+            type='button'
           >
             Next
           </button>
         </div>
         <h1 className='calendar__title'>{currentYearMonth}</h1>
-        <button className='calendar__button calendar__button_reset' onClick={handleResetClick}>
+        <button
+          className='calendar__button calendar__button_reset'
+          onClick={handleResetClick}
+          type='button'
+        >
           Today
         </button>
       </div>
