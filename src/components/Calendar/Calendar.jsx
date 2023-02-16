@@ -56,7 +56,9 @@ function Calendar() {
         const actualDate = new Date();
         const actualMonth = actualDate.getMonth();
         const isActualMonth = actualMonth === currentMonthIndex;
-        const isToday = isActualMonth && currentDate.getDate() === date;
+        const actualYear = actualDate.getFullYear();
+        const isActualYear = actualYear === currentDate.getFullYear();
+        const isToday = isActualMonth && isActualYear && currentDate.getDate() === date;
         return (
           <div
             className={`calendar__day ${
