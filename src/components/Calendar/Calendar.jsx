@@ -16,12 +16,17 @@ function Calendar() {
     month: 'long',
   })}`;
 
-  // define a function to handle the date change
-  const handleDateChange = (increment) => {
+  // function to handle the back and next buttons by incrementing or decrementing the month by 1 (increment = -1 or 1)
+  function handleDateChange(increment) {
     const newDate = new Date(currentDate);
     newDate.setMonth(newDate.getMonth() + increment);
     setCurrentDate(newDate);
-  };
+  }
+
+  // function to handle the reset button by setting the current date to today
+  function handleResetClick() {
+    setCurrentDate(new Date());
+  }
 
   // save the current date to localStorage when you leave the page
   React.useEffect(() => {
@@ -46,6 +51,9 @@ function Calendar() {
           </button>
         </div>
         <h1 className='calendar__title'>{currentYearMonth}</h1>
+        <button className='calendar__button calendar__button_reset' onClick={handleResetClick}>
+          Today
+        </button>
       </div>
       <div className='calendar__body'>
         <div className='calendar__week'>
