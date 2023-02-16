@@ -26,12 +26,12 @@
     cursor: pointer;
     opacity: 0.6;
 
-    &:nth-last-of-type(2) {
+    &:nth-of-type(1) {
       border-top-left-radius: 10px;
       border-bottom-left-radius: 10px;
     }
 
-    &:nth-last-of-type(1) {
+    &:nth-of-type(2) {
       border-top-right-radius: 10px;
       border-bottom-right-radius: 10px;
     }
@@ -39,5 +39,26 @@
     &:hover {
       opacity: 1;
     }
+  }
+
+  &__week {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--primary-color);
+  }
+
+  &__day {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    color: var(--quaternary-color);
+    font-weight: 300;
+    font-size: 16px;
+    font-family: sans-serif;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
   }
 }
