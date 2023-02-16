@@ -93,7 +93,7 @@ function Calendar() {
       <div className='calendar__body'>
         <div className='calendar__week'>
           {days.map((day) => (
-            <div className='calendar__day' key={day}>
+            <div className='calendar__day-name' key={day}>
               {day}
             </div>
           ))}

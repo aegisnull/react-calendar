@@ -1,7 +1,7 @@
 .calendar {
   max-width: 70vw;
   margin: auto;
-  padding-top: 10vh;
+  padding-top: 7vh;
 
   &__header {
     display: flex;
@@ -52,7 +52,7 @@
     background-color: var(--primary-color);
   }
 
-  &__day {
+  &__day-name {
     display: flex;
     flex: 1;
     align-items: center;
@@ -65,4 +65,22 @@
     background-color: white;
     border: 1px solid rgba(0, 0, 0, 0.1);
   }
+
+  &__day {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    padding: 10px;
+    height: 80px;
+    font-size: 14px;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--tertiary-color);
+    }
+  }
+
+  
 }
