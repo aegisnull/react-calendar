@@ -53,7 +53,10 @@ function Calendar() {
       {Array.from({ length: 7 }, (week, i) => i).map((day) => {
         const date = week * 7 + day + 1 - firstDayOfWeek;
         const isCurrentMonth = currentDate.getMonth() === currentMonthIndex;
-        const isToday = currentDate.getDate() === date;
+        const actualDate = new Date();
+        const actualMonth = actualDate.getMonth();
+        const isActualMonth = actualMonth === currentMonthIndex;
+        const isToday = isActualMonth && currentDate.getDate() === date;
         return (
           <div
             className={`calendar__day ${
