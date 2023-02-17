@@ -1,7 +1,7 @@
 {
   "name": "altomobile-react-challenge-luis-tellez",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.4.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "lint": "eslint 'src/**/*.{js,jsx}'",
     "lint:fix": "eslint --fix",
-    "format": "prettier --write 'src/**/*.{js,jsx,scss}'"
+    "format": "prettier --write 'src/**/*.{js,jsx,scss}'",
+    "test": "vitest"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -18,6 +19,7 @@
     "sass": "^1.58.1"
   },
   "devDependencies": {
+    "@testing-library/react": "^14.0.0",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react": "^3.1.0",
@@ -29,8 +31,10 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.0",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "jsdom": "^21.1.0",
     "prettier": "^2.8.3",
     "prettier-plugin-rational-order": "^1.0.3",
-    "vite": "^4.1.0"
+    "vite": "^4.1.0",
+    "vitest": "^0.28.5"
   }
 }
