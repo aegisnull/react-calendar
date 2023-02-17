@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Calendar from './components/Calendar/Calendar';
 
 function App() {
@@ -6,6 +6,7 @@ function App() {
     <div className='App'>
       <Routes>
         <Route path='/' element={<Calendar />} />
+        <Route path='*' element={<Navigate to='/' />} />
       </Routes>
     </div>
   );
