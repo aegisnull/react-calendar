@@ -69,7 +69,10 @@
   &__day {
     display: flex;
     flex: 1;
-    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    width: 40px;
     height: 80px;
     padding: 10px;
     font-size: 14px;
@@ -93,13 +96,30 @@
     }
 
     &_inactive {
+      color: gray;
       background-color: lightgray;
       cursor: unset;
-      color: gray;
 
       &:hover {
         background-color: lightgray;
       }
     }
+  }
+
+  &__appointment {
+    z-index: 1;
+    align-self: flex-start;
+    max-width: 90%;
+    height: 10px;
+    margin: 2px;
+    padding: 4px;
+    overflow: hidden;
+    color: #721c24;
+    font-size: 0.8em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background-color: var(--tertiary-color);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
   }
 }

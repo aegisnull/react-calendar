@@ -11,6 +11,33 @@ function Calendar() {
     return savedDate ? new Date(savedDate) : new Date();
   });
 
+  // define the state for appointments using the useState hook and the initial value from localStorage
+  const [appointments, setAppointments] = React.useState(() => {
+    const savedAppointments = localStorage.getItem('appointments');
+    return savedAppointments ? JSON.parse(savedAppointments) : [];
+  });
+
+  // save the current date to localStorage each time the currentDate state changes
+  React.useEffect(() => {
+    localStorage.setItem('currentDate', currentDate);
+  }, [currentDate]);
+
+  // save the appointments to localStorage each time the appointments state changes
+  React.useEffect(() => {
+    localStorage.setItem('appointments', JSON.stringify(appointments));
+  }, [appointments]);
+
+  const currentMonthIndex = currentDate.getMonth();
+
+  // get the number of days in the current month
+  const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+
+  // get the day of the week for the first day of the current month (0 = Sun, 1 = Mon, ..., 6 = Sat)
+  const firstDayOfWeek = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
+
+  // get the number of days in the previous month
+  const prevMonthLastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+
   // get the current year and month from the current date
   const currentYearMonth = `${currentDate.getFullYear()} ${currentDate.toLocaleString('en-US', {
     month: 'long',
@@ -28,29 +55,45 @@ function Calendar() {
     setCurrentDate(new Date());
   }
 
-  // save the current date to localStorage when you leave the page
-  React.useEffect(() => {
-    localStorage.setItem('currentDate', currentDate);
-  }, [currentDate]);
-
-  const currentMonthIndex = currentDate.getMonth();
-
-  // get the number of days in the current month
-  const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
-
-  // get the day of the week for the first day of the current month (0 = Sun, 1 = Mon, ..., 6 = Sat)
-  const firstDayOfWeek = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
-
-  // get the number of days in the previous month
-  const prevMonthLastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
-
   // render date boxes for the current month, previous month, and next month
+  function getDayClassName(date, isCurrentMonth, isToday) {
+    if (!isCurrentMonth || date < 1 || date > daysInMonth) {
+      return 'calendar__day_inactive';
+    }
+    if (isToday) {
+      return 'calendar__day_today';
+    }
+    return '';
+  }
+
+  function getDateAppointments(date) {
+    return appointments.filter((appointment) => {
+      const appointmentDate = new Date(appointment.time);
+      return (
+        appointmentDate.getFullYear() === currentDate.getFullYear() &&
+        appointmentDate.getMonth() === currentDate.getMonth() &&
+        appointmentDate.getDate() === date
+      );
+    });
+  }
+
+  function handleAddAppointment(date) {
+    const appointmentName = window.prompt('Enter appointment name');
+    if (appointmentName) {
+      const appointment = {
+        time: date.toISOString(),
+        name: appointmentName,
+      };
+      setAppointments([...appointments, appointment]); // add the new appointment to the set of appointments
+    }
+  }
+
   const dateBoxes = Array.from(
     { length: Math.ceil((daysInMonth + firstDayOfWeek) / 7) },
-    (week, i) => i,
+    (_, i) => i,
   ).map((week) => (
     <div className='calendar__week' key={week}>
-      {Array.from({ length: 7 }, (week, i) => i).map((day) => {
+      {Array.from({ length: 7 }, (_, i) => i).map((day) => {
         const date = week * 7 + day + 1 - firstDayOfWeek;
         const isCurrentMonth = currentDate.getMonth() === currentMonthIndex;
         const actualDate = new Date();
@@ -59,18 +102,40 @@ function Calendar() {
         const actualYear = actualDate.getFullYear();
         const isActualYear = actualYear === currentDate.getFullYear();
         const isToday = isActualMonth && isActualYear && currentDate.getDate() === date;
+
+        let dateText;
+        if (date < 1) {
+          dateText = prevMonthLastDay + date;
+        } else if (date > daysInMonth) {
+          dateText = date - daysInMonth;
+        } else {
+          dateText = date;
+        }
+
         return (
           <div
-            className={`calendar__day ${
-              !isCurrentMonth || date < 1 || date > daysInMonth
-                ? 'calendar__day_inactive'
-                : isToday
-                ? 'calendar__day_today'
-                : ''
-            }`}
+            className={`calendar__day ${getDayClassName(date, isCurrentMonth, isToday)}`}
             key={`${week}-${day}`}
+            onDoubleClick={() => {
+              if (isCurrentMonth && date >= 1 && date <= daysInMonth) {
+                const selectedDate = new Date(
+                  currentDate.getFullYear(),
+                  currentMonthIndex,
+                  date,
+                  actualDate.getHours(),
+                  actualDate.getMinutes(),
+                  actualDate.getSeconds(),
+                );
+                handleAddAppointment(selectedDate);
+              }
+            }}
           >
-            {date < 1 ? prevMonthLastDay + date : date > daysInMonth ? date - daysInMonth : date}
+            <div className='calendar__day-number'>{dateText}</div>
+            {getDateAppointments(date).map((appointment, index) => (
+              <div key={`appointment-${index}`} className='calendar__appointment'>
+                {appointment.name}
+              </div>
+            ))}
           </div>
         );
       })}
@@ -84,18 +149,24 @@ function Calendar() {
           <button
             className='calendar__button calendar__button_prev'
             onClick={() => handleDateChange(-1)}
+            type='button'
           >
             Back
           </button>
           <button
             className='calendar__button calendar__button_next'
             onClick={() => handleDateChange(1)}
+            type='button'
           >
             Next
           </button>
         </div>
         <h1 className='calendar__title'>{currentYearMonth}</h1>
-        <button className='calendar__button calendar__button_reset' onClick={handleResetClick}>
+        <button
+          className='calendar__button calendar__button_reset'
+          onClick={handleResetClick}
+          type='button'
+        >
           Today
         </button>
       </div>
