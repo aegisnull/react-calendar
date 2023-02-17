@@ -11,14 +11,21 @@ function Calendar() {
     return savedDate ? new Date(savedDate) : new Date();
   });
 
-  // define the state for appointments using the useState hook
-  const [appointments, setAppointments] = React.useState([]);
-  console.log(appointments);
+  // define the state for appointments using the useState hook and the initial value from localStorage
+  const [appointments, setAppointments] = React.useState(() => {
+    const savedAppointments = localStorage.getItem('appointments');
+    return savedAppointments ? JSON.parse(savedAppointments) : [];
+  });
 
-  // save the current date to localStorage when you leave the page
+  // save the current date to localStorage each time the currentDate state changes
   React.useEffect(() => {
     localStorage.setItem('currentDate', currentDate);
   }, [currentDate]);
+
+  // save the appointments to localStorage each time the appointments state changes
+  React.useEffect(() => {
+    localStorage.setItem('appointments', JSON.stringify(appointments));
+  }, [appointments]);
 
   const currentMonthIndex = currentDate.getMonth();
 
