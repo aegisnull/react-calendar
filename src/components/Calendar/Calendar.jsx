@@ -55,6 +55,17 @@ function Calendar() {
     return '';
   };
 
+  function handleAddAppointment(date) {
+    const appointmentName = window.prompt('Enter appointment name');
+    if (appointmentName) {
+      const appointment = {
+        time: date.toISOString(),
+        name: appointmentName,
+      };
+      console.log(appointment);
+    }
+  }
+
   const dateBoxes = Array.from(
     { length: Math.ceil((daysInMonth + firstDayOfWeek) / 7) },
     (_, i) => i,
@@ -93,7 +104,7 @@ function Calendar() {
                   actualDate.getMinutes(),
                   actualDate.getSeconds(),
                 );
-                console.log(selectedDate);
+                handleAddAppointment(selectedDate);
               }
             }}
           >
