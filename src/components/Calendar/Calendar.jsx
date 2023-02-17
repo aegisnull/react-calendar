@@ -11,6 +11,22 @@ function Calendar() {
     return savedDate ? new Date(savedDate) : new Date();
   });
 
+  // save the current date to localStorage when you leave the page
+  React.useEffect(() => {
+    localStorage.setItem('currentDate', currentDate);
+  }, [currentDate]);
+
+  const currentMonthIndex = currentDate.getMonth();
+
+  // get the number of days in the current month
+  const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+
+  // get the day of the week for the first day of the current month (0 = Sun, 1 = Mon, ..., 6 = Sat)
+  const firstDayOfWeek = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
+
+  // get the number of days in the previous month
+  const prevMonthLastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+
   // get the current year and month from the current date
   const currentYearMonth = `${currentDate.getFullYear()} ${currentDate.toLocaleString('en-US', {
     month: 'long',
@@ -28,24 +44,8 @@ function Calendar() {
     setCurrentDate(new Date());
   }
 
-  // save the current date to localStorage when you leave the page
-  React.useEffect(() => {
-    localStorage.setItem('currentDate', currentDate);
-  }, [currentDate]);
-
-  const currentMonthIndex = currentDate.getMonth();
-
-  // get the number of days in the current month
-  const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
-
-  // get the day of the week for the first day of the current month (0 = Sun, 1 = Mon, ..., 6 = Sat)
-  const firstDayOfWeek = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
-
-  // get the number of days in the previous month
-  const prevMonthLastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
-
   // render date boxes for the current month, previous month, and next month
-  const getDayClassName = (date, isCurrentMonth, isToday) => {
+  function getDayClassName(date, isCurrentMonth, isToday) {
     if (!isCurrentMonth || date < 1 || date > daysInMonth) {
       return 'calendar__day_inactive';
     }
@@ -53,7 +53,7 @@ function Calendar() {
       return 'calendar__day_today';
     }
     return '';
-  };
+  }
 
   function handleAddAppointment(date) {
     const appointmentName = window.prompt('Enter appointment name');
