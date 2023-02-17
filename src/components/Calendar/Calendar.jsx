@@ -59,6 +59,17 @@ function Calendar() {
     return '';
   }
 
+  function getDateAppointments(date) {
+    return appointments.filter((appointment) => {
+      const appointmentDate = new Date(appointment.time);
+      return (
+        appointmentDate.getFullYear() === currentDate.getFullYear() &&
+        appointmentDate.getMonth() === currentDate.getMonth() &&
+        appointmentDate.getDate() === date
+      );
+    });
+  }
+
   function handleAddAppointment(date) {
     const appointmentName = window.prompt('Enter appointment name');
     if (appointmentName) {
@@ -112,7 +123,12 @@ function Calendar() {
               }
             }}
           >
-            {dateText}
+            <div className='calendar__day-number'>{dateText}</div>
+            {getDateAppointments(date).map((appointment, index) => (
+              <div key={`appointment-${index}`} className='calendar__appointment'>
+                {appointment.name}
+              </div>
+            ))}
           </div>
         );
       })}
