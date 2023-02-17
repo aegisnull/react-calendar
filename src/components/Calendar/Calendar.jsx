@@ -11,6 +11,10 @@ function Calendar() {
     return savedDate ? new Date(savedDate) : new Date();
   });
 
+  // define the state for appointments using the useState hook
+  const [appointments, setAppointments] = React.useState([]);
+  console.log(appointments);
+
   // save the current date to localStorage when you leave the page
   React.useEffect(() => {
     localStorage.setItem('currentDate', currentDate);
@@ -62,7 +66,7 @@ function Calendar() {
         time: date.toISOString(),
         name: appointmentName,
       };
-      console.log(appointment);
+      setAppointments([...appointments, appointment]); // add the new appointment to the set of appointments
     }
   }
 
