@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Modal from '../Modal/Modal';
 import './Calendar.scss';
 
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-function Calendar() {
+function Calendar({ isOpen, onOpen, onClose }) {
   // define the state for the current date using the JS Date object
   const [currentDate, setCurrentDate] = React.useState(() => {
     // try to retrieve the saved date from localStorage
@@ -53,6 +55,15 @@ function Calendar() {
   // function to handle the reset button by setting the current date to today
   function handleResetClick() {
     setCurrentDate(new Date());
+  }
+
+  // new state to store the appointment data that was clicked
+  const [selectedAppointment, setSelectedAppointment] = React.useState({});
+
+  // handle opening the modal and selecting the appointment
+  function handleAppointmentClick(appointment) {
+    setSelectedAppointment(appointment);
+    onOpen();
   }
 
   // render date boxes for the current month, previous month, and next month
@@ -132,7 +143,15 @@ function Calendar() {
           >
             <div className='calendar__day-number'>{dateText}</div>
             {getDateAppointments(date).map((appointment, index) => (
-              <div key={`appointment-${index}`} className='calendar__appointment'>
+              <div
+                key={`appointment-${index}`}
+                className='calendar__appointment'
+                onClick={() => {
+                  if (appointment) {
+                    handleAppointmentClick(appointment);
+                  }
+                }}
+              >
                 {appointment.name}
               </div>
             ))}
@@ -144,6 +163,7 @@ function Calendar() {
 
   return (
     <div className='calendar'>
+      {isOpen ? <Modal onClose={onClose} appointmentDetails={selectedAppointment} /> : ''}
       <div className='calendar__header'>
         <div className='calendar__controls'>
           <button
@@ -183,5 +203,11 @@ function Calendar() {
     </div>
   );
 }
+
+Calendar.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onOpen: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
 
 export default Calendar;
