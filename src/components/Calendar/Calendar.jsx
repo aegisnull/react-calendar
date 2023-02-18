@@ -56,6 +56,15 @@ function Calendar({ isOpen, onOpen, onClose }) {
     setCurrentDate(new Date());
   }
 
+  // new state to store the appointment data that was clicked
+  const [selectedAppointment, setSelectedAppointment] = React.useState({});
+
+  // handle opening the modal and selecting the appointment
+  function handleAppointmentClick(appointment) {
+    setSelectedAppointment(appointment);
+    onOpen();
+  }
+
   // render date boxes for the current month, previous month, and next month
   function getDayClassName(date, isCurrentMonth, isToday) {
     if (!isCurrentMonth || date < 1 || date > daysInMonth) {
@@ -113,6 +122,8 @@ function Calendar({ isOpen, onOpen, onClose }) {
           dateText = date;
         }
 
+        const appointment = getDateAppointments(date)[0];
+
         return (
           <div
             className={`calendar__day ${getDayClassName(date, isCurrentMonth, isToday)}`}
@@ -133,7 +144,15 @@ function Calendar({ isOpen, onOpen, onClose }) {
           >
             <div className='calendar__day-number'>{dateText}</div>
             {getDateAppointments(date).map((appointment, index) => (
-              <div key={`appointment-${index}`} className='calendar__appointment'>
+              <div
+                key={`appointment-${index}`}
+                className='calendar__appointment'
+                onClick={() => {
+                  if (appointment) {
+                    handleAppointmentClick(appointment);
+                  }
+                }}
+              >
                 {appointment.name}
               </div>
             ))}
