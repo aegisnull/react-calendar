@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Modal.scss';
 
 function Modal({ onClose, appointmentDetails }) {
@@ -35,7 +36,7 @@ function Modal({ onClose, appointmentDetails }) {
         <p className='modal__appointment'>Date: {formattedDate}</p>
         <p className='modal__appointment'>Name: {appointmentDetails.name}</p>
         <div className='modal__buttons'>
-          <button className='modal__button' onClick={onClose}>
+          <button className='modal__button' type='button' onClick={onClose}>
             Close
           </button>
         </div>
@@ -43,5 +44,13 @@ function Modal({ onClose, appointmentDetails }) {
     </div>
   );
 }
+
+Modal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  appointmentDetails: PropTypes.shape({
+    time: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]).isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default Modal;

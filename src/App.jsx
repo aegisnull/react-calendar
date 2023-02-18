@@ -5,13 +5,13 @@ import Calendar from './components/Calendar/Calendar';
 function App() {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
-  function handleModalOpen() {
+  const handleModalOpen = React.useCallback(() => {
     setIsModalOpen(true);
-  }
+  }, []);
 
-  function handleModalClose() {
+  const handleModalClose = React.useCallback(() => {
     setIsModalOpen(false);
-  }
+  }, []);
 
   return (
     <div className='App'>

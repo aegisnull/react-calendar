@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal';
 import './Calendar.scss';
 
@@ -122,8 +123,6 @@ function Calendar({ isOpen, onOpen, onClose }) {
           dateText = date;
         }
 
-        const appointment = getDateAppointments(date)[0];
-
         return (
           <div
             className={`calendar__day ${getDayClassName(date, isCurrentMonth, isToday)}`}
@@ -204,5 +203,11 @@ function Calendar({ isOpen, onOpen, onClose }) {
     </div>
   );
 }
+
+Calendar.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onOpen: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
 
 export default Calendar;
