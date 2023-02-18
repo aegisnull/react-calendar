@@ -164,7 +164,7 @@ function Calendar({ isOpen, onOpen, onClose }) {
 
   return (
     <div className='calendar'>
-      {isOpen ? <Modal onClose={onClose} /> : ''}
+      {isOpen ? <Modal onClose={onClose} appointmentDetails={selectedAppointment} /> : ''}
       <div className='calendar__header'>
         <div className='calendar__controls'>
           <button
