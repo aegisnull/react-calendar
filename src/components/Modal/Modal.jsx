@@ -1,12 +1,36 @@
+import React from 'react';
 import './Modal.scss';
 
 function Modal({ onClose, appointmentDetails }) {
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   const formattedDate = new Date(appointmentDetails.time).toLocaleString('en-US', options);
 
+  const modalRef = React.useRef();
+
+  React.useEffect(() => {
+    function handleKeyDown(e) {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    }
+    function handleOutsideClick(e) {
+      if (!modalRef.current.contains(e.target)) {
+        onClose();
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('mousedown', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [onClose]);
+
   return (
     <div className='modal'>
-      <div className='modal__content'>
+      <div ref={modalRef} className='modal__content'>
         <h1 className='modal__title'>Appointment</h1>
         <p className='modal__appointment'>Date: {formattedDate}</p>
         <p className='modal__appointment'>Name: {appointmentDetails.name}</p>
