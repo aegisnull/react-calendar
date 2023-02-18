@@ -1,9 +1,10 @@
 import React from 'react';
+import Modal from '../Modal/Modal';
 import './Calendar.scss';
 
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-function Calendar() {
+function Calendar({ isOpen, onOpen, onClose }) {
   // define the state for the current date using the JS Date object
   const [currentDate, setCurrentDate] = React.useState(() => {
     // try to retrieve the saved date from localStorage
@@ -144,6 +145,7 @@ function Calendar() {
 
   return (
     <div className='calendar'>
+      {isOpen ? <Modal onClose={onClose} /> : ''}
       <div className='calendar__header'>
         <div className='calendar__controls'>
           <button
