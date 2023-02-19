@@ -22,10 +22,12 @@ function Calendar({ isOpen, onOpen, onClose }) {
   // fetch the JSON data and update the appointments state
   // concat the new data to the existing appointments
   React.useEffect(() => {
-    fetch('https://altomobile.blob.core.windows.net/api/test.json')
-      .then((response) => response.json())
-      .then((data) => setAppointments.concat(data));
-  }, []);
+    if (appointments.length === 0) {
+      fetch('https://altomobile.blob.core.windows.net/api/test.json')
+        .then((response) => response.json())
+        .then((data) => setAppointments(data));
+    }
+  }, [appointments]);
 
   // save the current date to localStorage each time the currentDate state changes
   React.useEffect(() => {
