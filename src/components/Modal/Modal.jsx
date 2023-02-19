@@ -33,8 +33,13 @@ function Modal({ onClose, appointmentDetails }) {
     <div className='modal'>
       <div ref={modalRef} className='modal__content'>
         <h1 className='modal__title'>Appointment</h1>
-        <p className='modal__appointment'>Date: {formattedDate}</p>
-        <p className='modal__appointment'>Name: {appointmentDetails.name}</p>
+        <p className='modal__appointment'>
+          <span className='modal__bold'>Date: </span>
+          {formattedDate}
+        </p>
+        <p className='modal__appointment'>
+          <span className='modal__bold'>Name: </span> {appointmentDetails.name}
+        </p>
         <div className='modal__buttons'>
           <button className='modal__button' type='button' onClick={onClose}>
             Close
