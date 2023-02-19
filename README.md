@@ -1,5 +1,7 @@
 # Altomobile React Challenge Luis Tellez
 
+![React Calendar](https://user-images.githubusercontent.com/27663011/219922454-f35c187f-5814-4405-9645-a8c6cb390977.gif)
+
 ## Description
 
 This is a simple React application that displays a calendar with the current month and allows the user to select a date. The user can also add events to the calendar by clicking on a date and filling out a form. The events are saved in the browser's local storage. (for now).
