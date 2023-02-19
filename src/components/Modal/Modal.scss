@@ -28,11 +28,18 @@
   }
 
   &__appointment {
+    font-weight: 300;
+    font-family: 'Lato', sans-serif;
+  }
+
+  &__bold {
+    font-weight: 400;
   }
 
   &__title {
     font-weight: 600;
     font-size: 1.5rem;
+    font-family: 'Libre Baskerville', serif;
     text-align: center;
   }
 
@@ -46,6 +53,7 @@
     margin-right: 10px;
     padding: 0.5rem 1rem;
     color: #fff;
+    font-family: 'Lato', sans-serif;
     background-color: var(--secondary-color);
     border: none;
     border-radius: 5px;
