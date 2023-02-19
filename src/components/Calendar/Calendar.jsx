@@ -19,8 +19,7 @@ function Calendar({ isOpen, onOpen, onClose }) {
     return savedAppointments ? JSON.parse(savedAppointments) : [];
   });
 
-  // fetch the JSON data and update the appointments state
-  // concat the new data to the existing appointments
+  // fetch the JSON data and update the appointments state only if the appointments state is empty
   React.useEffect(() => {
     if (appointments.length === 0) {
       fetch('https://altomobile.blob.core.windows.net/api/test.json')
