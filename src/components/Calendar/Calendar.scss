@@ -1,0 +1,166 @@
+.calendar {
+  max-width: 70vw;
+  margin: auto;
+  padding-top: 7vh;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: white;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+
+  &__title {
+    color: var(--secondary-color);
+    font-weight: 700;
+    font-size: 26px;
+    font-family: 'Libre Baskerville', serif;
+  }
+
+  &__button {
+    padding: 0.5rem;
+    font-family: 'Lato', sans-serif;
+    background-color: var(--tertiary-color);
+    border: none;
+    cursor: pointer;
+    opacity: 0.6;
+
+    &:nth-of-type(1) {
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+    }
+
+    &:nth-of-type(2) {
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+
+    &_reset {
+      border-radius: 10px;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__week {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--primary-color);
+  }
+
+  &__day-name {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    color: var(--quaternary-color);
+    font-weight: 300;
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  &__day {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    width: 40px;
+    height: 65px;
+    padding: 10px;
+    font-size: 14px;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+
+    &-number {
+      font-weight: 300;
+      font-family: 'Lato', serif;
+    }
+
+    &:hover {
+      background-color: var(--tertiary-color);
+    }
+
+    &_today {
+      font-weight: 600;
+      background-color: var(--secondary-color);
+      opacity: 0.6;
+
+      &:hover {
+        background-color: var(--secondary-color);
+        opacity: 1;
+      }
+    }
+
+    &_inactive {
+      color: gray;
+      background-color: lightgray;
+      cursor: unset;
+
+      &:hover {
+        background-color: lightgray;
+      }
+    }
+  }
+
+  &__appointment {
+    z-index: 1;
+    align-self: flex-start;
+    max-width: 90%;
+    height: 10px;
+    margin: 2px;
+    padding: 4px;
+    overflow: hidden;
+    color: #721c24;
+    font-size: 0.8em;
+    font-family: 'Roboto Slab', serif;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background-color: var(--tertiary-color);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    opacity: 0.65;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+@media screen and (max-width: 757px) {
+  .calendar {
+    max-width: 90vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .calendar {
+    &__day {
+      width: 30px;
+      height: 50px;
+    }
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .calendar {
+    &__day {
+      width: 25px;
+      height: 40px;
+    }
+
+    &__button {
+      border-radius: 10px;
+    }
+  }
+}
